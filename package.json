@@ -16,11 +16,13 @@
         "@bot-whatsapp/database": "latest",
         "@bot-whatsapp/portal": "latest",
         "@bot-whatsapp/provider": "latest",
+        "@bot-whatsapp/provider-baileys": "^0.1.0-alpha.18",
         "@builderbot/bot": "^1.2.4",
-        "@whiskeysockets/baileys": "6.5.0",
+        "@whiskeysockets/baileys": "^6.5.0",
         "cache-manager": "5.2.4",
         "dotenv": "^16.4.7",
         "openai": "^4.78.1",
+        "sharp": "^0.32.6",
         "wa-sticker-formatter": "4.4.4"
     },
     "devDependencies": {

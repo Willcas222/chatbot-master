@@ -3,11 +3,13 @@ require('dotenv').config();
 const QRPortalWeb = require('@bot-whatsapp/portal')
 const BaileysProvider = require('@bot-whatsapp/provider/baileys')
 const MockAdapter = require('@bot-whatsapp/database/mock')
-const {getAudioWaveform} = require("@whiskeysockets/baileys");
+const {getAudioWaveform, delay} = require("@whiskeysockets/baileys");
 const flowConsejo = require('./flow/flowConsejo.js');
 const flowPropiedad = require('./flow/flowPropiedad.js');
 const flowHerpatria = require('./flow/flowHerpatria.js');
-const flowGrevigilancia = require('./flow/flowGrevigilancia.js')
+const flowGrevigilancia = require('./flow/flowGrevigilancia.js');
+const flowAsesor = require('./flow/flowAsesor.js');
+
 
 /* menu principal */
 const WAITING_TIME = Number(process.env.WAITING_TIME);
@@ -16,6 +18,7 @@ const flowPrincipal = addKeyword(EVENTS.WELCOME)
         {
             capture: true,
             idle: WAITING_TIME
+           
         },
         async (ctx,{flowDynamic,state})=>{
             await state.update({name: ctx.body})
@@ -25,16 +28,19 @@ const flowPrincipal = addKeyword(EVENTS.WELCOME)
 
     )
     .addAnswer('‎',
-        null,
+        {
+            delay: 2000
+        },
         async (_, { flowDynamic, state }) => {
             const data = state.getMyState()
-            await flowDynamic(`¡Hola! ${data.name} Soy el asistente virtual del candidato duvan rivera al senado . Estoy aquí para ayudarte con información sobre sus propuestas, el partido político y también para conectar contigo si necesitas asesoría personalizada. ¿Cómo puedo ayudarte hoy?`)
+            await flowDynamic(
+                `¡Hola! ${data.name} soy el asistente virtual del representante a la Cámara José Jaime Uscategui.¿Cómo puedo ayudarte hoy?`)
         }
 
     )
     .addAnswer(
         [
-            '               👨Seleciona una opcion',
+            '✅  Digita el *número de opción* para brindarte mas información:\n',
             '👉 *1* Consejo de seguridad en tu localidad.\n',
             '👉 *2* Información sobre Propiedad Horizontal.\n',
             '👉 *3* Información sobre Salud Mental\n',
@@ -51,7 +57,7 @@ const flowPrincipal = addKeyword(EVENTS.WELCOME)
                 await flowDynamic('Ups, parece que seleccionaste una opción inválida. Intenta nuevamente.');
             }
         },
-        [flowConsejo,flowPropiedad,flowHerpatria,flowGrevigilancia]
+        [flowConsejo,flowPropiedad,flowHerpatria,flowGrevigilancia,flowAsesor]
     )
 
 const main = async () => {

@@ -6,7 +6,8 @@ const { getOpenAIResponse } = require('../service/openiaservice');
 const WAITING_TIME = Number(process.env.WAITING_TIME);
 const flowConsejo = addKeyword(['consejo', '1'])
     .addAnswer('Estas en la opción del consejo de seguridad.')
-    .addAnswer('¿Qué es el consejo de seguridad? El consejo de seguridad es para apoyarte y escucharte con los problemas que presentes en tu localidad. ', 
+    .addAnswer(['👮🏻‍♂️ ¿Qué es el *consejo de seguridad*?\n', 
+        'El consejo de seguridad es para apoyarte y escucharte con los problemas que presentes en tu localidad. '], 
          null,
          null
     )
@@ -94,7 +95,8 @@ const flowConsejo = addKeyword(['consejo', '1'])
         }
     )
     .addAnswer(
-        ['¿Son estos datos correctos? Responde "sí" o "no".'],
+        ['¿Son estos datos correctos?\n',
+            ' Responde "sí" o "no".'],
         { capture: true, idle: WAITING_TIME },  
         async (ctx, { state, flowDynamic }) => {
             const confirmation = ctx.body?.trim().toLowerCase();
