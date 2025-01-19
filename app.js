@@ -3,12 +3,13 @@ require('dotenv').config();
 const QRPortalWeb = require('@bot-whatsapp/portal')
 const BaileysProvider = require('@bot-whatsapp/provider/baileys')
 const MockAdapter = require('@bot-whatsapp/database/mock')
-const {getAudioWaveform, delay} = require("@whiskeysockets/baileys");
 const flowConsejo = require('./flow/flowConsejo.js');
 const flowPropiedad = require('./flow/flowPropiedad.js');
 const flowHerpatria = require('./flow/flowHerpatria.js');
 const flowGrevigilancia = require('./flow/flowGrevigilancia.js');
 const flowAsesor = require('./flow/flowAsesor.js');
+const flowAgendar = require('./flow/flowAgendar.js');
+
 
 
 /* menu principal */
@@ -60,7 +61,7 @@ const flowPrincipal = addKeyword(EVENTS.WELCOME,'volver')
         await flowDynamic('⚠️ Ups, parece que seleccionaste una opción inválida. Por favor, intenta nuevamente ingresando un número del 1 al 7. 🙏');
       }
     },
-    [flowConsejo, flowPropiedad, flowHerpatria, flowGrevigilancia, flowAsesor]
+    [flowConsejo, flowPropiedad, flowHerpatria, flowGrevigilancia, flowAsesor,flowAgendar]
   );
 
 const main = async () => {
